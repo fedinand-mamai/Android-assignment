@@ -1,0 +1,187 @@
+// --- FILE: res/layout/activity_signup.xml ---
+/*
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="24dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/wave_background"
+            android:contentDescription="Wave background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:paddingTop="12dp"
+            android:paddingEnd="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign up"
+                android:textColor="#007BFF"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:paddingEnd="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign in"
+                android:textColor="#007BFF"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/etUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            android:background="@drawable/edit_text_line"
+            android:paddingVertical="12dp"
+            android:textColorHint="#757575"
+            android:textSize="16sp"
+            android:layout_marginTop="24dp" />
+
+        <EditText
+            android:id="@+id/etFullName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full name"
+            android:background="@drawable/edit_text_line"
+            android:paddingVertical="12dp"
+            android:textColorHint="#757575"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="E-mail"
+            android:background="@drawable/edit_text_line"
+            android:paddingVertical="12dp"
+            android:textColorHint="#757575"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:background="@drawable/edit_text_line"
+            android:paddingVertical="12dp"
+            android:inputType="textPassword"
+            android:textColorHint="#757575"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp" />
+
+        <CheckBox
+            android:id="@+id/checkboxTerms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agree with Terms & Conditions"
+            android:textColor="#007BFF"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign up"
+            android:background="@drawable/button_background"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="24dp"
+            android:paddingVertical="12dp"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I'm already a member"
+            android:textColor="#007BFF"
+            android:layout_marginTop="16dp"
+            android:textSize="14sp" />
+    </LinearLayout>
+</ScrollView>
+*/
+
+// --- FILE: res/drawable/edit_text_line.xml ---
+/*
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@android:color/transparent" />
+    <size android:height="1dp" />
+    <stroke android:width="1dp" android:color="#007BFF" />
+</shape>
+*/
+
+// --- FILE: res/drawable/button_background.xml ---
+/*
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#007BFF"/>
+    <corners android:radius="24dp"/>
+</shape>
+*/
+
+// --- FILE: res/drawable/wave_background.xml ---
+/*
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400dp"
+    android:height="200dp"
+    android:viewportWidth="400"
+    android:viewportHeight="200">
+    <path
+        android:fillColor="#007BFF"
+        android:pathData="M0,0 L0,120 Q100,180 200,120 T400,120 L400,0 Z" />
+</vector>
+*/
+
+// --- FILE: src/com/example/myapp/SignupActivity.kt ---
+package com.example.myapp
+
+import android.os.Bundle
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+
+class SignupActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_signup)
+
+        val username = findViewById<EditText>(R.id.etUsername)
+        val fullName = findViewById<EditText>(R.id.etFullName)
+        val email = findViewById<EditText>(R.id.etEmail)
+        val password = findViewById<EditText>(R.id.etPassword)
+        val terms = findViewById<CheckBox>(R.id.checkboxTerms)
+        val signUp = findViewById<Button>(R.id.btnSignUp)
+
+        signUp.setOnClickListener {
+            val uname = username.text.toString()
+            val fname = fullName.text.toString()
+            val em = email.text.toString()
+            val pass = password.text.toString()
+            val agreed = terms.isChecked
+
+            if (uname.isEmpty() || fname.isEmpty() || em.isEmpty() || pass.isEmpty() || !agreed) {
+                Toast.makeText(this, "Please fill all fields and agree to the terms", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Account created successfully!", Toast.LENGTH_LONG).show()
+                // TODO: Firebase sign-up logic can be placed here
+            }
+        }
+    }
+}
